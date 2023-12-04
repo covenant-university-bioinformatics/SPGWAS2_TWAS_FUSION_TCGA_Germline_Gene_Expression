@@ -1,0 +1,20 @@
+### Docker GETEX8
+docker build -t tcga_germline .
+mkdir test1
+mkdir test2
+
+dbdir="/media/yagoubali/bioinfo3/SPGWAS2/db"
+outdir="/media/yagoubali/bioinfo3/SPGWAS2/TWAS_FUSION_TCGA_Germline/test1"
+outdir2="/media/yagoubali/bioinfo3/SPGWAS2/TWAS_FUSION_TCGA_Germline/test2"
+input_file="/media/yagoubali/bioinfo3/SPGWAS2/PGC2.SCZ.sumstats"
+
+
+
+docker run --rm -it --name testing -v ${dbdir}:/db -v ${outdir}:/home/outdir \
+ -v ${input_file}:/app/input.txt -v /app/scripts tcga_germline bash /app/scripts/script.sh /app/input.txt /home/outdir \
+TCGA_BLCA.TUMOR eur 22 100000 0 0.5  0.7 2500 0 0 
+
+
+docker run --rm -it --name testing -v ${dbdir}:/db -v ${outdir2}:/home/outdir \
+ -v ${input_file}:/app/input.txt -v /app/scripts tcga_germline bash /app/scripts/script.sh /app/input.txt /home/outdir \
+  TCGA_BRCA.TUMOR afr 22 100000 0 0.5  0.7 2500 0 100  0.05  
